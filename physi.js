@@ -108,11 +108,7 @@ window.Physijs = (function() {
 		_temp_matrix4_1.identity(); // reset temp matrix
 
 		// Set the temp matrix's rotation to the object's rotation
-		if ( object.useQuaternion ) {
-			_temp_matrix4_1.identity().setRotationFromQuaternion( object.quaternion );
-		} else {
-			_temp_matrix4_1.identity().makeRotationFromEuler( object.rotation );
-		}
+		_temp_matrix4_1.identity().setRotationFromQuaternion( object.quaternion );
 
 		// Invert rotation matrix in order to "unrotate" a point back to object space
 		_temp_matrix4_1.getInverse( _temp_matrix4_1 );
@@ -884,10 +880,6 @@ window.Physijs = (function() {
 
 				// Object starting position + rotation
 				object._physijs.position = { x: object.position.x, y: object.position.y, z: object.position.z };
-				if (!object.useQuaternion) {
-					_matrix.identity().makeRotationFromEuler( object.rotation );
-					object.quaternion.setFromRotationMatrix( _matrix );
-				}
 				object._physijs.rotation = { x: object.quaternion.x, y: object.quaternion.y, z: object.quaternion.z, w: object.quaternion.w };
 
 				// Check for scaling
@@ -967,10 +959,6 @@ window.Physijs = (function() {
 				}
 
 				if ( object.__dirtyRotation ) {
-					if (!object.useQuaternion) {
-						_matrix.identity().makeRotationFromEuler( object.rotation );
-						object.quaternion.setFromRotationMatrix( _matrix );
-					};
 					update.quat = { x: object.quaternion.x, y: object.quaternion.y, z: object.quaternion.z, w: object.quaternion.w };
 					object.__dirtyRotation = false;
 				}
