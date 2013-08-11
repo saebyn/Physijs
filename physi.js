@@ -516,21 +516,12 @@ window.Physijs = (function() {
 			}
 
 			if ( object.__dirtyRotation === false ) {
-				if ( object.useQuaternion ) {
-					object.quaternion.set(
-						data[ offset + 4 ],
-						data[ offset + 5 ],
-						data[ offset + 6 ],
-						data[ offset + 7 ]
-					);
-				} else {
-					object.rotation = getEulerXYZFromQuaternion(
-						data[ offset + 4 ],
-						data[ offset + 5 ],
-						data[ offset + 6 ],
-						data[ offset + 7 ]
-					);
-				}
+				object.quaternion.set(
+					data[ offset + 4 ],
+					data[ offset + 5 ],
+					data[ offset + 6 ],
+					data[ offset + 7 ]
+				);
 			}
 
 			object._physijs.linearVelocity.set(
@@ -576,22 +567,12 @@ window.Physijs = (function() {
 				data[ offset + 4 ]
 			);
 
-			if ( wheel.useQuaternion ) {
-				wheel.quaternion.set(
-					data[ offset + 5 ],
-					data[ offset + 6 ],
-					data[ offset + 7 ],
-					data[ offset + 8 ]
-				);
-			} else {
-				wheel.rotation = getEulerXYZFromQuaternion(
-					data[ offset + 5 ],
-					data[ offset + 6 ],
-					data[ offset + 7 ],
-					data[ offset + 8 ]
-				);
-			}
-
+			wheel.quaternion.set(
+				data[ offset + 5 ],
+				data[ offset + 6 ],
+				data[ offset + 7 ],
+				data[ offset + 8 ]
+			);
 		}
 
 		if ( SUPPORT_TRANSFERABLE ) {
