@@ -6,7 +6,7 @@
     "phsijs_worker.js"
   ],
   "ignore": [
-    ".jshintrc",
+    ".jshintrc"
   ],
   "dependencies": {
     "threejs": "r59",
