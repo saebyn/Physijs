@@ -108,7 +108,7 @@ window.Physijs = (function() {
 		_temp_matrix4_1.identity(); // reset temp matrix
 
 		// Set the temp matrix's rotation to the object's rotation
-		_temp_matrix4_1.identity().setRotationFromQuaternion( object.quaternion );
+		_temp_matrix4_1.identity().makeRotationFromQuaternion( object.quaternion );
 
 		// Invert rotation matrix in order to "unrotate" a point back to object space
 		_temp_matrix4_1.getInverse( _temp_matrix4_1 );
