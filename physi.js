@@ -1,6 +1,12 @@
 'use strict';
 
-window.Physijs = (function() {
+if ( this['define'] === undefined ) {
+  this.define = function (deps, fn) {
+    window.Physijs = fn(window.THREE);
+  }
+}
+
+define(['THREE'], function (THREE) {
 	var THREE_REVISION = parseInt( THREE.REVISION, 10 ),
 		SUPPORT_TRANSFERABLE,
 		_matrix = new THREE.Matrix4, _is_simulating = false,
@@ -1397,4 +1403,4 @@ window.Physijs = (function() {
 	};
 
 	return Physijs;
-})();
+});
