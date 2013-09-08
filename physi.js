@@ -23,7 +23,7 @@ define(['THREE'], function (THREE) {
 		_temp_matrix4_1 = new THREE.Matrix4,
 		_quaternion_1 = new THREE.Quaternion,
 
-        // constants
+		// constants
 		MESSAGE_TYPES = {
 			WORLDREPORT: 0,
 			COLLISIONREPORT: 1,
@@ -328,8 +328,8 @@ define(['THREE'], function (THREE) {
 		} else if ( target instanceof THREE.Euler ) {
 			target = new THREE.Quaternion().setFromEuler( target );
 		} else if ( target instanceof THREE.Matrix4 ) {
-            target = new THREE.Quaternion().setFromRotationMatrix( target );
-        }
+			target = new THREE.Quaternion().setFromRotationMatrix( target );
+		}
 		this.scene.execute( 'conetwist_setMotorTarget', { constraint: this.id, x: target.x, y: target.y, z: target.z, w: target.w } );
 	};
 	Physijs.ConeTwistConstraint.prototype.disableMotor = function() {
@@ -704,8 +704,8 @@ define(['THREE'], function (THREE) {
 
 		}
 
-    // if A is in B's collision list, then B should be in A's collision list
-    for (var id in collisions) {
+	// if A is in B's collision list, then B should be in A's collision list
+	for (var id in collisions) {
 		if ( collisions.hasOwnProperty( id ) && collisions[id] ) {
 			for ( j = 0; j < collisions[id].length; j++) {
 				if (collisions[id][j]) {
@@ -714,9 +714,9 @@ define(['THREE'], function (THREE) {
 				}
 			}
 		}
-    }
+	}
 
-    this.collisions = collisions;
+	this.collisions = collisions;
 
 		if ( SUPPORT_TRANSFERABLE ) {
 			// Give the typed array back to the worker
@@ -902,7 +902,7 @@ define(['THREE'], function (THREE) {
 				this.execute( 'removeObject', { id: object._physijs.id } );
 			}
 		}
-		if ( object.material._physijs && this._materials_ref_counts.hasOwnProperty( object.material._physijs.id ) ) {
+		if ( object.material && object.material._physijs && this._materials_ref_counts.hasOwnProperty( object.material._physijs.id ) ) {
 			this._materials_ref_counts[object.material._physijs.id]--;
 			if(this._materials_ref_counts[object.material._physijs.id] == 0) {
 				this.execute( 'unRegisterMaterial', object.material._physijs );
