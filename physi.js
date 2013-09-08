@@ -7,9 +7,8 @@ if ( this['define'] === undefined ) {
 }
 
 define(['THREE'], function (THREE) {
-	var THREE_REVISION = parseInt( THREE.REVISION, 10 ),
-		SUPPORT_TRANSFERABLE,
-		_matrix = new THREE.Matrix4, _is_simulating = false,
+	var SUPPORT_TRANSFERABLE,
+		_is_simulating = false,
 		_Physijs = Physijs, // used for noConflict method
 		Physijs = {}, // object assigned to window.Physijs
 		Eventable, // class to provide simple event methods
@@ -24,7 +23,7 @@ define(['THREE'], function (THREE) {
 		_temp_matrix4_1 = new THREE.Matrix4,
 		_quaternion_1 = new THREE.Quaternion,
 
-	// constants
+        // constants
 		MESSAGE_TYPES = {
 			WORLDREPORT: 0,
 			COLLISIONREPORT: 1,
@@ -325,11 +324,12 @@ define(['THREE'], function (THREE) {
 	};
 	Physijs.ConeTwistConstraint.prototype.setMotorTarget = function( target ) {
 		if ( target instanceof THREE.Vector3 ) {
-			throw 'Wait for Three.js r50 to setMotorTarget from Vector3 - use Matrix4 or Quaternion instead';
+			target = new THREE.Quaternion().setFromEuler( new THREE.Euler( target.x, target.y, target.z ) );
+		} else if ( target instanceof THREE.Euler ) {
 			target = new THREE.Quaternion().setFromEuler( target );
 		} else if ( target instanceof THREE.Matrix4 ) {
-			target = new THREE.Quaternion().setFromRotationMatrix( target );
-		}
+            target = new THREE.Quaternion().setFromRotationMatrix( target );
+        }
 		this.scene.execute( 'conetwist_setMotorTarget', { constraint: this.id, x: target.x, y: target.y, z: target.z, w: target.w } );
 	};
 	Physijs.ConeTwistConstraint.prototype.disableMotor = function() {
@@ -707,7 +707,7 @@ define(['THREE'], function (THREE) {
     // if A is in B's collision list, then B should be in A's collision list
     for (var id in collisions) {
 		if ( collisions.hasOwnProperty( id ) && collisions[id] ) {
-			for (var j=0; j < collisions[id].length; j++) {
+			for ( j = 0; j < collisions[id].length; j++) {
 				if (collisions[id][j]) {
 					collisions[ collisions[id][j] ] = collisions[ collisions[id][j] ] || [];
 					collisions[ collisions[id][j] ].push(id);
@@ -951,7 +951,7 @@ define(['THREE'], function (THREE) {
 				}
 
 				this.execute( 'updateTransform', update );
-			};
+			}
 		}
 
 		this.execute( 'simulate', { timeStep: timeStep, maxSubSteps: maxSubSteps } );
